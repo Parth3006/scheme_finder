@@ -1,0 +1,767 @@
+/* ============================================================
+   SchemeFinder — Core Design System
+   Foundation CSS: tokens, reset, typography, layout, nav,
+   buttons, cards, animations, responsive
+   ============================================================ */
+
+/* ----------------------------------------------------------
+   1. CSS Custom Properties (Design Tokens)
+   ---------------------------------------------------------- */
+:root {
+  /* Brand Colors */
+  --primary: #2563EB;
+  --primary-dark: #1E40AF;
+  --primary-light: #3B82F6;
+  --accent: #10B981;
+  --accent-warm: #F59E0B;
+
+  /* Background Surfaces */
+  --bg-base: #0F172A;
+  --bg-surface: #1E293B;
+  --bg-elevated: #334155;
+  --bg-card: rgba(30, 41, 59, 0.7);
+
+  /* Text */
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+
+  /* Borders */
+  --border-color: rgba(148, 163, 184, 0.1);
+  --border-glow: rgba(37, 99, 235, 0.3);
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #2563EB, #10B981);
+  --gradient-warm: linear-gradient(135deg, #F59E0B, #EF4444);
+  --gradient-hero: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.35), 0 2px 6px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.45), 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-glow: 0 0 20px rgba(37, 99, 235, 0.35), 0 0 60px rgba(37, 99, 235, 0.15);
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
+  /* Typography */
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-heading: 'Outfit', 'Inter', sans-serif;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  /* Layout */
+  --nav-height: 72px;
+}
+
+/* ----------------------------------------------------------
+   2. Global Reset
+   ---------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-base);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-elevated);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--bg-elevated) var(--bg-base);
+}
+
+/* ----------------------------------------------------------
+   3. Typography
+   ---------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); }
+h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); }
+h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
+h4 { font-size: 1.25rem; }
+h5 { font-size: 1.1rem; }
+h6 { font-size: 1rem; }
+
+p {
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.gradient-text {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section-title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 1rem;
+  position: relative;
+  padding-bottom: 1.2rem;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: var(--gradient-primary);
+  border-radius: 2px;
+}
+
+/* ----------------------------------------------------------
+   4. Layout
+   ---------------------------------------------------------- */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
+}
+
+.page {
+  min-height: 100vh;
+  display: none;
+  padding-top: var(--nav-height);
+  opacity: 0;
+  transform: translateY(0);
+}
+
+.page.active {
+  display: block;
+  animation: pageEnter 0.5s ease forwards;
+}
+
+.page.entering {
+  display: block;
+  animation: pageEnter 0.5s ease forwards;
+}
+
+.page.leaving {
+  display: block;
+  animation: pageLeave 0.4s ease forwards;
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pageLeave {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+}
+
+/* ----------------------------------------------------------
+   5. Navigation (.navbar)
+   ---------------------------------------------------------- */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-height);
+  z-index: 1000;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-color);
+  transition: background var(--transition-base), box-shadow var(--transition-base);
+}
+
+.navbar.scrolled {
+  background: rgba(15, 23, 42, 0.95);
+  box-shadow: var(--shadow-md);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.nav-logo {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.nav-title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.35rem;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.02em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-link {
+  position: relative;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+
+.nav-link:hover {
+  color: var(--text-primary);
+  background: rgba(148, 163, 184, 0.06);
+}
+
+.nav-link.active {
+  color: var(--text-primary);
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 16px;
+  right: 16px;
+  height: 2px;
+  background: var(--gradient-primary);
+  border-radius: 1px;
+}
+
+/* Mobile Toggle */
+.nav-mobile-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+  z-index: 1001;
+}
+
+.nav-mobile-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 1px;
+  transition: transform var(--transition-base), opacity var(--transition-base);
+  transform-origin: center;
+}
+
+.nav-mobile-toggle.active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-mobile-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-mobile-toggle.active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ----------------------------------------------------------
+   6. Buttons (.btn)
+   ---------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 28px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+  user-select: none;
+  border: none;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Primary */
+.btn-primary {
+  background: var(--gradient-primary);
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(37, 99, 235, 0.25);
+}
+
+.btn-primary:hover:not(:disabled) {
+  filter: brightness(1.1);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: scale(0.97);
+  filter: brightness(1);
+}
+
+/* Ghost */
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  border-color: var(--border-glow);
+  color: var(--text-primary);
+  background: rgba(37, 99, 235, 0.05);
+}
+
+/* Large */
+.btn-lg {
+  padding: 16px 36px;
+  font-size: 1.05rem;
+  border-radius: var(--radius-lg);
+}
+
+/* Submit Glow */
+.submit-glow {
+  animation: submitPulse 2s ease-in-out infinite;
+}
+
+@keyframes submitPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(37, 99, 235, 0.3), 0 0 40px rgba(16, 185, 129, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(37, 99, 235, 0.5), 0 0 60px rgba(16, 185, 129, 0.3);
+  }
+}
+
+/* ----------------------------------------------------------
+   7. Cards Base
+   ---------------------------------------------------------- */
+.card {
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  transition: border-color var(--transition-base),
+              transform var(--transition-base),
+              box-shadow var(--transition-base);
+}
+
+.card:hover {
+  border-color: var(--border-glow);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ----------------------------------------------------------
+   8. Animation Utilities
+   ---------------------------------------------------------- */
+
+/* Scroll-reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition-delay: calc(var(--delay, 0) * 0.15s);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(37, 99, 235, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(37, 99, 235, 0.6), 0 0 50px rgba(16, 185, 129, 0.2);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Stagger delays */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+.stagger-6 { animation-delay: 0.6s; }
+
+/* ----------------------------------------------------------
+   9. Form Inputs (shared)
+   ---------------------------------------------------------- */
+.text-input {
+  width: 100%;
+  padding: 14px 18px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.text-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.text-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Validation */
+.validation-message {
+  font-size: 0.85rem;
+  margin-top: 8px;
+  min-height: 1.2em;
+  transition: color var(--transition-fast);
+}
+
+.validation-message.error {
+  color: #EF4444;
+}
+
+.validation-message.success {
+  color: var(--accent);
+}
+
+/* ----------------------------------------------------------
+   10. Utility Classes
+   ---------------------------------------------------------- */
+.text-center { text-align: center; }
+.text-muted { color: var(--text-muted); }
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+.full-width { width: 100%; }
+
+/* ----------------------------------------------------------
+   11. Responsive — Tablet (≤ 768px)
+   ---------------------------------------------------------- */
+@media (max-width: 768px) {
+  :root {
+    --nav-height: 64px;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  /* Mobile nav */
+  .nav-mobile-toggle {
+    display: flex;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: rgba(15, 23, 42, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-color);
+    padding: 16px 24px 24px;
+    gap: 4px;
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform var(--transition-base), opacity var(--transition-base);
+    z-index: 999;
+  }
+
+  .nav-links.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-link {
+    padding: 12px 16px;
+    font-size: 1rem;
+    width: 100%;
+    border-radius: var(--radius-sm);
+  }
+
+  .nav-link:hover {
+    background: rgba(148, 163, 184, 0.08);
+  }
+
+  .nav-link.active::after {
+    display: none;
+  }
+
+  .nav-link.active {
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--primary-light);
+  }
+
+  .section-title {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
+
+  .btn-lg {
+    padding: 14px 28px;
+    font-size: 0.95rem;
+  }
+}
+
+/* ----------------------------------------------------------
+   12. Responsive — Mobile (≤ 480px)
+   ---------------------------------------------------------- */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 12px;
+  }
+
+  h1 { font-size: clamp(1.7rem, 7vw, 2.4rem); }
+  h2 { font-size: clamp(1.4rem, 6vw, 1.8rem); }
+  h3 { font-size: clamp(1.05rem, 4vw, 1.3rem); }
+
+  .section-title {
+    font-size: clamp(1.3rem, 6vw, 1.7rem);
+    padding-bottom: 1rem;
+  }
+
+  .section-title::after {
+    width: 40px;
+    height: 3px;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  .btn-lg {
+    padding: 12px 24px;
+    font-size: 0.9rem;
+    border-radius: var(--radius-md);
+  }
+
+  .text-input {
+    padding: 12px 14px;
+    font-size: 0.95rem;
+  }
+}
+
+/* ----------------------------------------------------------
+   13. Reduced Motion
+   ---------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

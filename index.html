@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SchemeFinder — AI-powered tool to discover government welfare schemes you're eligible for. Supporting UN SDG 1: No Poverty.">
+  <title>SchemeFinder — Discover Government Schemes You Deserve</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏛️</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/landing.css">
+  <link rel="stylesheet" href="css/form.css">
+  <link rel="stylesheet" href="css/results.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#landing" class="nav-brand">
+        <span class="nav-logo">🏛️</span>
+        <span class="nav-title">SchemeFinder</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#landing" class="nav-link active" data-page="landing">Home</a>
+        <a href="#eligibility" class="nav-link" data-page="eligibility">Check Eligibility</a>
+        <a href="#results" class="nav-link" data-page="results">Results</a>
+        <a href="#dashboard" class="nav-link" data-page="dashboard">Dashboard</a>
+      </div>
+      <button class="nav-mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Page: Landing -->
+  <section class="page active" id="landing">
+    <div class="hero" id="hero">
+      <canvas id="particleCanvas"></canvas>
+      <div class="hero-content">
+        <div class="hero-badge">🇮🇳 SDG 1: No Poverty</div>
+        <h1 class="hero-title">Discover Government Schemes<br><span class="gradient-text">You Deserve</span></h1>
+        <p class="hero-subtitle">AI-powered matching to connect you with 100+ welfare schemes across India. Find benefits for your exact profile in under 60 seconds.</p>
+        <div class="hero-cta">
+          <button class="btn btn-primary btn-lg" id="ctaButton">Check Your Eligibility →</button>
+          <button class="btn btn-ghost btn-lg" id="dashboardCta">View Live Impact ↗</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-section" id="statsSection">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-card reveal"><span class="stat-number" data-target="100">0</span><span class="stat-suffix">+</span><span class="stat-label">Government Schemes</span></div>
+          <div class="stat-card reveal"><span class="stat-number" data-target="28">0</span><span class="stat-label">States & UTs Covered</span></div>
+          <div class="stat-card reveal"><span class="stat-number" data-target="50000">0</span><span class="stat-suffix">+</span><span class="stat-label">Citizens Helped</span></div>
+          <div class="stat-card reveal"><span class="stat-number" data-target="95">0</span><span class="stat-suffix">%</span><span class="stat-label">Match Accuracy</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="features-section" id="featuresSection">
+      <div class="container">
+        <h2 class="section-title reveal">How It <span class="gradient-text">Works</span></h2>
+        <div class="features-grid">
+          <div class="feature-card reveal" style="--delay: 0">
+            <div class="feature-step">01</div>
+            <div class="feature-icon">📋</div>
+            <h3>Share Your Profile</h3>
+            <p>Answer 5 simple questions about your income, age, occupation, state, and category.</p>
+          </div>
+          <div class="feature-card reveal" style="--delay: 1">
+            <div class="feature-step">02</div>
+            <div class="feature-icon">🤖</div>
+            <h3>AI-Powered Matching</h3>
+            <p>Our AI agent analyzes your profile against 100+ government welfare schemes in real-time.</p>
+          </div>
+          <div class="feature-card reveal" style="--delay: 2">
+            <div class="feature-step">03</div>
+            <div class="feature-icon">✅</div>
+            <h3>Get Your Results</h3>
+            <p>See matched schemes with eligibility reasons, required documents, and direct apply links.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sdg-section" id="sdgSection">
+      <div class="container">
+        <div class="sdg-content reveal">
+          <div class="sdg-badge">United Nations Sustainable Development Goal 1</div>
+          <h2 class="section-title">Ending Poverty <span class="gradient-text">Together</span></h2>
+          <p>SchemeFinder directly contributes to the UN SDG 1 — No Poverty. By bridging the information gap between citizens and government welfare programs, we ensure no eligible person misses out on the benefits they deserve.</p>
+          <div class="sdg-stats">
+            <div class="sdg-stat"><strong>21.9%</strong><span>of India lives below poverty line</span></div>
+            <div class="sdg-stat"><strong>₹3.5L Cr</strong><span>allocated for welfare annually</span></div>
+            <div class="sdg-stat"><strong>40%</strong><span>benefits go unclaimed</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-section" id="ctaSection">
+      <div class="container">
+        <div class="cta-card reveal">
+          <h2>Ready to find schemes <span class="gradient-text">meant for you?</span></h2>
+          <p>It takes less than 60 seconds. No sign-up required.</p>
+          <button class="btn btn-primary btn-lg" id="ctaButton2">Start Now — It's Free →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Page: Eligibility Form -->
+  <section class="page" id="eligibility">
+    <div class="form-container">
+      <div class="form-header">
+        <h2 class="form-title">Check Your <span class="gradient-text">Eligibility</span></h2>
+        <p class="form-subtitle" id="formSubtitle">Step 1 of 10: Full Name</p>
+      </div>
+      <div class="progress-container" id="progressContainer">
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-steps">
+          <div class="progress-step active" data-step="1"><span class="step-num">1</span><span class="step-label">Name</span></div>
+          <div class="progress-step" data-step="2"><span class="step-num">2</span><span class="step-label">Age</span></div>
+          <div class="progress-step" data-step="3"><span class="step-num">3</span><span class="step-label">State</span></div>
+          <div class="progress-step" data-step="4"><span class="step-num">4</span><span class="step-label">Income</span></div>
+          <div class="progress-step" data-step="5"><span class="step-num">5</span><span class="step-label">Occupation</span></div>
+          <div class="progress-step" data-step="6"><span class="step-num">6</span><span class="step-label">Category</span></div>
+          <div class="progress-step" data-step="7"><span class="step-num">7</span><span class="step-label">Gender</span></div>
+          <div class="progress-step" data-step="8"><span class="step-num">8</span><span class="step-label">Marital</span></div>
+          <div class="progress-step" data-step="9"><span class="step-num">9</span><span class="step-label">Disability</span></div>
+          <div class="progress-step" data-step="10"><span class="step-num">10</span><span class="step-label">Situations</span></div>
+        </div>
+      </div>
+      <form id="eligibilityForm" autocomplete="off">
+        <!-- Step 1: Full Name -->
+        <div class="form-step active" data-step="1">
+          <div class="step-content">
+            <div class="step-icon">👤</div>
+            <h3>What is your Full Name?</h3>
+            <div class="name-input-container">
+              <input type="text" id="nameInput" placeholder="Enter your full name" class="text-input" required>
+              <div class="validation-message" id="nameValidation"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Age -->
+        <div class="form-step" data-step="2">
+          <div class="step-content">
+            <div class="step-icon">🎂</div>
+            <h3>How old are you?</h3>
+            <div class="age-input-container">
+              <input type="number" id="ageInput" min="1" max="120" placeholder="Enter your age" class="text-input" required>
+              <div class="age-group" id="ageGroup"></div>
+              <div class="validation-message" id="ageValidation"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: State/UT -->
+        <div class="form-step" data-step="3">
+          <div class="step-content">
+            <div class="step-icon">📍</div>
+            <h3>Which state or UT do you live in?</h3>
+            <div class="state-select-container">
+              <div class="search-input-wrapper">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="stateSearch" placeholder="Search your state or UT..." class="text-input" autocomplete="off" required>
+              </div>
+              <div class="state-dropdown" id="stateDropdown"></div>
+              <input type="hidden" id="stateInput" name="state">
+              <div class="selected-state" id="selectedState"></div>
+              <div class="validation-message" id="stateValidation"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: Annual Family Income -->
+        <div class="form-step" data-step="4">
+          <div class="step-content">
+            <div class="step-icon">💰</div>
+            <h3>What is your annual family income?</h3>
+            <div class="income-input-container">
+              <input type="number" id="incomeInput" min="0" placeholder="Enter annual income in ₹" class="text-input" required>
+              <div class="validation-message" id="incomeValidation"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5: Occupation -->
+        <div class="form-step" data-step="5">
+          <div class="step-content">
+            <div class="step-icon">💼</div>
+            <h3>What is your occupation?</h3>
+            <div class="select-container">
+              <select id="occupationSelect" class="text-input select-input" required>
+                <option value="" disabled selected>Select your occupation</option>
+                <option value="Farmer">Farmer</option>
+                <option value="Student">Student</option>
+                <option value="Self-employed/Business Owner">Self-employed/Business Owner</option>
+                <option value="Salaried Employee">Salaried Employee</option>
+                <option value="Unemployed">Unemployed</option>
+                <option value="Fisherman">Fisherman</option>
+                <option value="Artisan/Weaver">Artisan/Weaver</option>
+                <option value="Daily Wage Worker">Daily Wage Worker</option>
+                <option value="Retired">Retired</option>
+                <option value="Homemaker">Homemaker</option>
+                <option value="Other">Other</option>
+              </select>
+              <div class="validation-message" id="occupationValidation"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 6: Social Category -->
+        <div class="form-step" data-step="6">
+          <div class="step-content">
+            <div class="step-icon">📑</div>
+            <h3>What is your social category?</h3>
+            <div class="select-container">
+              <select id="categorySelect" class="text-input select-input" required>
+                <option value="" disabled selected>Select your category</option>
+                <option value="General">General</option>
+                <option value="SC">SC</option>
+                <option value="ST">ST</option>
+                <option value="OBC">OBC</option>
+                <option value="EWS">EWS</option>
+                <option value="Minority">Minority</option>
+              </select>
+              <div class="validation-message" id="categoryValidation"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 7: Gender (Optional) -->
+        <div class="form-step" data-step="7">
+          <div class="step-content">
+            <div class="step-icon">⚧️</div>
+            <h3>What is your gender? <span class="optional-tag">(Optional)</span></h3>
+            <div class="option-grid compact" id="genderGrid">
+              <label class="option-card"><input type="radio" name="gender" value="Male"><span class="option-label">Male</span></label>
+              <label class="option-card"><input type="radio" name="gender" value="Female"><span class="option-label">Female</span></label>
+              <label class="option-card"><input type="radio" name="gender" value="Other"><span class="option-label">Other</span></label>
+            </div>
+            <div class="validation-message" id="genderValidation"></div>
+          </div>
+        </div>
+
+        <!-- Step 8: Marital Status (Optional) -->
+        <div class="form-step" data-step="8">
+          <div class="step-content">
+            <div class="step-icon">❤️</div>
+            <h3>What is your marital status? <span class="optional-tag">(Optional)</span></h3>
+            <div class="option-grid compact" id="maritalGrid">
+              <label class="option-card"><input type="radio" name="marital" value="Single"><span class="option-label">Single</span></label>
+              <label class="option-card"><input type="radio" name="marital" value="Married"><span class="option-label">Married</span></label>
+              <label class="option-card"><input type="radio" name="marital" value="Widow/Widower"><span class="option-label">Widow/Widower</span></label>
+              <label class="option-card"><input type="radio" name="marital" value="Divorced"><span class="option-label">Divorced</span></label>
+            </div>
+            <div class="validation-message" id="maritalValidation"></div>
+          </div>
+        </div>
+
+        <!-- Step 9: Disability Status (Optional) -->
+        <div class="form-step" data-step="9">
+          <div class="step-content">
+            <div class="step-icon">♿</div>
+            <h3>Do you have any disability? <span class="optional-tag">(Optional)</span></h3>
+            <div class="option-grid compact" id="disabilityGrid">
+              <label class="option-card"><input type="radio" name="disability" value="Yes"><span class="option-label">Yes</span></label>
+              <label class="option-card"><input type="radio" name="disability" value="No"><span class="option-label">No</span></label>
+            </div>
+            <div class="validation-message" id="disabilityValidation"></div>
+          </div>
+        </div>
+
+        <!-- Step 10: Additional situations (Optional) -->
+        <div class="form-step" data-step="10">
+          <div class="step-content">
+            <div class="step-icon">✨</div>
+            <h3>Do any of these additional situations apply to you? <span class="optional-tag">(Optional)</span></h3>
+            <div class="option-grid" id="situationsGrid">
+              <label class="option-card"><input type="checkbox" name="situations" value="Ex-serviceman"><span class="option-label">Ex-serviceman</span></label>
+              <label class="option-card"><input type="checkbox" name="situations" value="BPL cardholder"><span class="option-label">BPL cardholder</span></label>
+              <label class="option-card"><input type="checkbox" name="situations" value="Currently enrolled student"><span class="option-label">Currently enrolled student</span></label>
+              <label class="option-card"><input type="checkbox" name="situations" value="Person with disability"><span class="option-label">Person with disability</span></label>
+              <label class="option-card"><input type="checkbox" name="situations" value="None of these" id="situationNone"><span class="option-label">None of these</span></label>
+            </div>
+            <div class="validation-message" id="situationsValidation"></div>
+          </div>
+        </div>
+      </form>
+      <div class="form-nav">
+        <button class="btn btn-ghost" id="prevBtn" disabled>← Back</button>
+        <button class="btn btn-primary" id="nextBtn">Next →</button>
+        <button class="btn btn-primary btn-lg submit-glow" id="submitBtn" style="display:none">Find My Schemes 🚀</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Page: Results -->
+  <section class="page" id="results">
+    <div class="loading-state" id="loadingState">
+      <div class="radar-container">
+        <div class="radar-circle r1"></div>
+        <div class="radar-circle r2"></div>
+        <div class="radar-circle r3"></div>
+        <div class="radar-sweep"></div>
+        <div class="radar-center">🔍</div>
+      </div>
+      <h3 class="loading-text">Scanning 100+ Government Schemes</h3>
+      <p class="loading-subtext" id="loadingSubtext">Analyzing your profile with AI...</p>
+    </div>
+    <div class="results-content" id="resultsContent" style="display:none">
+      <div class="container">
+        <div class="results-header">
+          <h2 class="section-title">Your Matched <span class="gradient-text">Schemes</span></h2>
+          <p class="results-summary" id="resultsSummary"></p>
+        </div>
+        <div class="filter-bar" id="filterBar">
+          <div class="filter-group">
+            <button class="filter-pill active" data-filter="all">All Schemes</button>
+            <button class="filter-pill" data-filter="central">🏛️ Central</button>
+            <button class="filter-pill" data-filter="state">📍 State</button>
+          </div>
+          <div class="sort-group">
+            <select class="sort-select" id="sortSelect">
+              <option value="score">Sort by Match Score</option>
+              <option value="name">Sort A → Z</option>
+            </select>
+          </div>
+        </div>
+        <div class="schemes-grid" id="schemesGrid"></div>
+        <div class="no-results" id="noResults" style="display:none">
+          <div class="no-results-icon">🔎</div>
+          <h3>No schemes matched your current filters</h3>
+          <p>Try adjusting your filters or check your eligibility details.</p>
+          <button class="btn btn-primary" id="retryBtn">Try Again →</button>
+        </div>
+        <div class="results-actions">
+          <button class="btn btn-ghost" id="modifyBtn">← Modify Details</button>
+          <button class="btn btn-primary" id="dashboardFromResults">View Live Dashboard →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Page: Dashboard -->
+  <section class="page" id="dashboard">
+    <div class="container">
+      <div class="dashboard-header">
+        <div>
+          <h2 class="section-title">Live Impact <span class="gradient-text">Dashboard</span></h2>
+          <p class="dashboard-subtitle">Real-time insights into SchemeFinder's impact across India</p>
+        </div>
+        <div class="live-indicator"><span class="live-dot"></span> LIVE</div>
+      </div>
+      <div class="dashboard-stats" id="dashboardStats">
+        <div class="dash-stat-card"><div class="dash-stat-icon">🔍</div><div class="dash-stat-number" id="dashSearches" data-target="1247">0</div><div class="dash-stat-label">Searches Today</div></div>
+        <div class="dash-stat-card"><div class="dash-stat-icon">✅</div><div class="dash-stat-number" id="dashMatches" data-target="3842">0</div><div class="dash-stat-label">Schemes Matched</div></div>
+        <div class="dash-stat-card"><div class="dash-stat-icon">👥</div><div class="dash-stat-number" id="dashUsers" data-target="892">0</div><div class="dash-stat-label">Users Helped Today</div></div>
+        <div class="dash-stat-card"><div class="dash-stat-icon">📈</div><div class="dash-stat-number" id="dashSuccess" data-target="94">0</div><div class="dash-stat-label">Success Rate %</div></div>
+      </div>
+      <div class="dashboard-charts">
+        <div class="chart-card"><h3 class="chart-title">Top States by Searches</h3><div class="bar-chart" id="statesChart"></div></div>
+        <div class="chart-card"><h3 class="chart-title">Scheme Categories</h3><div class="donut-chart-container" id="categoriesChart"></div></div>
+      </div>
+      <div class="chart-card full-width"><h3 class="chart-title">Recent Activity</h3><div class="activity-feed" id="activityFeed"></div></div>
+    </div>
+  </section>
+
+  <script src="js/animations.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/form.js"></script>
+ <script src="js/results.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
